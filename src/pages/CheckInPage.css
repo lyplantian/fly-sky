@@ -1,0 +1,206 @@
+.checkin-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s ease;
+}
+
+.checkin-step {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.back-btn {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px 0;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+.back-btn:hover {
+  color: var(--text-secondary);
+}
+
+.checkin-title {
+  font-size: 18px;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 400;
+}
+
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.mood-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 16px;
+  background: var(--bg-secondary);
+  border: 2px solid transparent;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mood-card:hover {
+  background: var(--bg-tertiary);
+  transform: translateY(-2px);
+}
+
+.mood-card.selected {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+}
+
+.mood-emoji {
+  font-size: 32px;
+}
+
+.mood-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.selected-mood-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.mood-emoji-large {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.checkin-prompt {
+  font-size: 16px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.note-section {
+  margin-bottom: 30px;
+}
+
+.note-label {
+  display: block;
+  font-size: 14px;
+  color: var(--text-tertiary);
+  margin-bottom: 12px;
+}
+
+.note-input {
+  width: 100%;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 15px;
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.note-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.note-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.complete-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--bg-tertiary);
+  border: none;
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.complete-btn:hover {
+  background: var(--border-color);
+  transform: translateY(-1px);
+}
+
+.checkin-step.completion {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.completion-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.streak-info {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.no-rewards {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-bottom: 40px;
+}
+
+.completion-buttons {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.secondary-btn,
+.primary-btn {
+  flex: 1;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.secondary-btn {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.secondary-btn:hover {
+  background: var(--bg-tertiary);
+}
+
+.primary-btn {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.primary-btn:hover {
+  background: var(--border-color);
+  transform: translateY(-1px);
+}

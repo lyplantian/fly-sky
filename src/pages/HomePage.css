@@ -1,0 +1,139 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 20px 40px;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  transition: background 0.3s ease;
+}
+
+.language-switcher-top {
+  display: flex;
+  gap: 8px;
+  align-self: flex-end;
+  margin-bottom: 20px;
+}
+
+.lang-btn-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--bg-secondary);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.lang-btn-top:hover {
+  background: var(--bg-tertiary);
+}
+
+.lang-btn-top.active {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+}
+
+.lang-btn-top .lang-flag {
+  font-size: 16px;
+}
+
+.lang-btn-top .lang-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.star-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.home-title {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 400;
+}
+
+.mood-selector {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mood-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 24px;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mood-btn:hover {
+  background: var(--bg-tertiary);
+  transform: translateY(-2px);
+}
+
+.mood-btn.good:hover {
+  background: rgba(255, 184, 108, 0.15);
+}
+
+.mood-btn.okay:hover {
+  background: rgba(176, 176, 176, 0.15);
+}
+
+.mood-btn.rough:hover {
+  background: rgba(139, 233, 253, 0.15);
+}
+
+.divider {
+  width: 60%;
+  height: 1px;
+  background: var(--bg-tertiary);
+  margin-bottom: 30px;
+}
+
+.nav-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 280px;
+}
+
+.nav-btn {
+  padding: 16px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  background: var(--bg-tertiary);
+  transform: translateY(-1px);
+}
+
+.nav-btn.primary {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.nav-btn.primary:hover {
+  background: var(--border-color);
+}
