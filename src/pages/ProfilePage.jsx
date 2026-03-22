@@ -14,18 +14,26 @@ function ProfilePage({ onNavigate }) {
     getRecentCheckIns,
     exportData,
     deleteAllData,
-    isLoading
+    isLoading,
+    getTimeSavedEstimate,
+    tasks
   } = useStarBuddyContext()
   
   const [userName, setUserName] = useState(profile?.name || '')
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [vibeStyle, setVibeStyle] = useState(preferences?.vibeStyle || 'balanced')
+  const [aiIntensity, setAiIntensity] = useState(preferences?.aiIntensity || 'balanced')
   const [recentCheckIns, setRecentCheckIns] = useState([])
+  
+  const timeSaved = getTimeSavedEstimate()
+  const completedTasks = tasks.filter(t => t.completed).length
+  const totalTasks = tasks.length
 
   useEffect(() => {
     if (!isLoading) {
       setUserName(profile?.name || '')
       setVibeStyle(preferences?.vibeStyle || 'balanced')
+      setAiIntensity(preferences?.aiIntensity || 'balanced')
       setRecentCheckIns(getRecentCheckIns(7))
     }
   }, [isLoading, profile, preferences, getRecentCheckIns])
@@ -65,6 +73,11 @@ function ProfilePage({ onNavigate }) {
 
   const handleRemindersToggle = () => {
     updatePreferences({ reminders: !preferences?.reminders })
+  }
+
+  const handleAiIntensityChange = (intensity) => {
+    setAiIntensity(intensity)
+    updatePreferences({ aiIntensity: intensity })
   }
 
   const getWeekDay = (dateString) => {
@@ -111,6 +124,22 @@ function ProfilePage({ onNavigate }) {
         />
       </div>
 
+      {/* Stats Section */}
+      <div className="stats-section">
+        <div className="stat-card">
+          <div className="stat-value">≈{Math.round(timeSaved / 60)}h</div>
+          <div className="stat-label">{t('profile.stats.timeSaved')}</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value">{completedTasks}/{totalTasks}</div>
+          <div className="stat-label">{t('profile.stats.tasksDone')}</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value">{recentCheckIns.length}</div>
+          <div className="stat-label">{t('profile.stats.checkIns')}</div>
+        </div>
+      </div>
+
       <div className="profile-section">
         <h2 className="section-title">{t('profile.sections.vibeCalendar')}</h2>
         <div className="vibe-calendar">
@@ -154,6 +183,30 @@ function ProfilePage({ onNavigate }) {
                 onClick={() => handleVibeStyleChange('gentle')}
               >
                 Gentle
+              </button>
+            </div>
+          </div>
+
+          <div className="preference-group">
+            <label className="preference-label">{t('profile.preferences.aiIntensity')}</label>
+            <div className="vibe-style-options">
+              <button
+                className={`vibe-option ${aiIntensity === 'minimal' ? 'active' : ''}`}
+                onClick={() => handleAiIntensityChange('minimal')}
+              >
+                {t('profile.aiIntensity.minimal')}
+              </button>
+              <button
+                className={`vibe-option ${aiIntensity === 'balanced' ? 'active' : ''}`}
+                onClick={() => handleAiIntensityChange('balanced')}
+              >
+                {t('profile.aiIntensity.balanced')}
+              </button>
+              <button
+                className={`vibe-option ${aiIntensity === 'active' ? 'active' : ''}`}
+                onClick={() => handleAiIntensityChange('active')}
+              >
+                {t('profile.aiIntensity.veryActive')}
               </button>
             </div>
           </div>

@@ -9,6 +9,7 @@ import CheckInPage from './pages/CheckInPage'
 import ChatPage from './pages/ChatPage'
 import CopeToolkitPage from './pages/CopeToolkitPage'
 import ProfilePage from './pages/ProfilePage'
+import AISidekickPage from './pages/AISidekickPage'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home')
@@ -17,6 +18,8 @@ function App() {
     switch (currentPage) {
       case 'home':
         return <HomePage onNavigate={setCurrentPage} />
+      case 'ai-sidekick':
+        return <AISidekickPage onNavigate={setCurrentPage} />
       case 'checkin':
         return <CheckInPage onNavigate={setCurrentPage} />
       case 'chat':

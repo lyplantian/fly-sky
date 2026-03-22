@@ -62,9 +62,13 @@
 .mood-selector {
   display: flex;
   gap: 12px;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.mood-selector.secondary {
+  margin-bottom: 30px;
 }
 
 .mood-btn {
@@ -98,11 +102,56 @@
   background: rgba(139, 233, 253, 0.15);
 }
 
+.mood-btn.stressed:hover {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.mood-btn.tired:hover {
+  background: rgba(139, 92, 246, 0.15);
+}
+
+.mood-btn.overwhelmed:hover {
+  background: rgba(59, 130, 246, 0.15);
+}
+
 .divider {
   width: 60%;
   height: 1px;
   background: var(--bg-tertiary);
   margin-bottom: 30px;
+}
+
+.ai-preview-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 280px;
+}
+
+.ai-preview-icon {
+  font-size: 24px;
+}
+
+.ai-preview-text {
+  flex: 1;
+}
+
+.ai-preview-title {
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.ai-preview-subtitle {
+  color: #a5b4fc;
+  font-size: 12px;
 }
 
 .nav-buttons {
@@ -136,4 +185,15 @@
 
 .nav-btn.primary:hover {
   background: var(--border-color);
+}
+
+.nav-btn.ai-sidekick {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  font-weight: 500;
+}
+
+.nav-btn.ai-sidekick:hover {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  transform: translateY(-2px);
 }

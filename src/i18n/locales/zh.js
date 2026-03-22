@@ -10,13 +10,21 @@ export default {
     moods: {
       good: '还不错',
       okay: '一般般',
-      rough: '不太好'
+      rough: '不太好',
+      stressed: '烦躁',
+      tired: '疲惫',
+      overwhelmed: '焦虑'
     },
     buttons: {
+      aiSidekick: 'AI 助手',
       checkIn: '今日打卡',
       chat: '聊一会儿',
       copeToolkit: '应对工具箱',
       profile: '我的'
+    },
+    aiPreview: {
+      title: 'AI 助手',
+      timeSaved: '本周已节省 ≈{hours} 小时'
     }
   },
 
@@ -56,6 +64,7 @@ export default {
     sections: {
       vibe: '情绪管理',
       mental: '心理重置',
+      productivity: '生产力重置',
       lowEffort: '小确幸',
       random: '随机'
     },
@@ -63,17 +72,47 @@ export default {
       excuseGenerator: '借口生成器',
       socialEscape: '社交回避',
       brainDump: '大脑清空',
+      fiveMinuteReset: '5分钟重置',
       dumbMemes: '傻屌表情包',
       hotTake: '辣评',
+      simplifyTodo: '简化我的待办',
+      scheduleBreaks: '安排休息',
+      findFocusTime: '找到专注时间',
       tinyWin: '小确幸',
       minimalLife: '极简生活',
       whatNow: '现在干嘛？'
     }
   },
 
+  aiSidekick: {
+    title: 'AI 助手',
+    timeSaved: '本周节省时间',
+    quickStart: '需要什么帮助？',
+    nlPlaceholder: '告诉我你需要什么...（例如："买牛奶，周五前完成报告"）',
+    myTodoList: '我的待办',
+    connectCalendar: '连接日历',
+    justAskMe: '直接问我',
+    whatShouldDo: '我现在该做什么？',
+    productivityReset: '生产力重置',
+    aiPrioritizedTasks: 'AI 优先级任务',
+    currentVibe: '当前状态',
+    noTasks: '还没有任务！在上面添加一些开始吧。',
+    addNewTask: '添加新任务',
+    taskTitle: '任务标题',
+    estimatedTime: '预计时间（分钟）',
+    dueDate: '截止日期',
+    cancel: '取消',
+    addTask: '添加任务'
+  },
+
   profile: {
     title: '个人中心',
     name: '你的名字',
+    stats: {
+      timeSaved: '节省时间',
+      tasksDone: '完成任务',
+      checkIns: '打卡次数'
+    },
     sections: {
       vibeCalendar: '心情日历',
       chatHistory: '聊天记录',
@@ -83,7 +122,13 @@ export default {
     },
     preferences: {
       vibeStyle: '回复风格',
+      aiIntensity: 'AI 强度',
       reminders: '提醒设置'
+    },
+    aiIntensity: {
+      minimal: '最小',
+      balanced: '平衡',
+      veryActive: '非常活跃'
     },
     data: {
       export: '导出数据',

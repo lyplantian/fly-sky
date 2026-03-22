@@ -1,0 +1,10 @@
+name = "fly-sky"
+compatibility_date = "2024-03-20"
+pages_build_output_dir = "dist"
+
+[vars]
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200

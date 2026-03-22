@@ -4,7 +4,9 @@ const STORAGE_KEYS = {
   CHECK_INS: 'starbuddy_checkins',
   CHAT_HISTORY: 'starbuddy_chats',
   USER_PREFERENCES: 'starbuddy_preferences',
-  USER_PROFILE: 'starbuddy_profile'
+  USER_PROFILE: 'starbuddy_profile',
+  TASKS: 'starbuddy_tasks',
+  TIME_LOGS: 'starbuddy_time_logs'
 };
 
 export function saveToStorage(key, data) {
@@ -60,6 +62,8 @@ export function exportAllData() {
       chatHistory: loadFromStorage(STORAGE_KEYS.CHAT_HISTORY, []),
       preferences: loadFromStorage(STORAGE_KEYS.USER_PREFERENCES, {}),
       profile: loadFromStorage(STORAGE_KEYS.USER_PROFILE, {}),
+      tasks: loadFromStorage(STORAGE_KEYS.TASKS, []),
+      timeLogs: loadFromStorage(STORAGE_KEYS.TIME_LOGS, []),
       exportedAt: new Date().toISOString()
     };
     return data;

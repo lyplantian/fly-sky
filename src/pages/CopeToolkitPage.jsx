@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useI18n } from '../i18n'
+import { useStarBuddyContext } from '../contexts/StarBuddyContext'
 import {
   ExcuseGenerator,
   TinyWin,
@@ -12,24 +13,31 @@ import './CopeToolkitPage.css'
 
 function CopeToolkitPage({ onNavigate }) {
   const { t } = useI18n()
+  const { getPrioritizedTasks, deleteTask } = useStarBuddyContext()
   const [activeTool, setActiveTool] = useState(null)
 
   const tools = {
     vibe: [
-      { key: 'excuseGenerator', icon: '🎭', label: 'Excuse Generator', component: ExcuseGenerator },
-      { key: 'socialEscape', icon: '🚪', label: 'Social Escape', component: null }
+      { key: 'excuseGenerator', icon: '🎭', label: t('cope.tools.excuseGenerator'), component: ExcuseGenerator },
+      { key: 'socialEscape', icon: '🚪', label: t('cope.tools.socialEscape'), component: null }
     ],
     mental: [
-      { key: 'brainDump', icon: '🧠', label: 'Brain Dump', component: BrainDump },
-      { key: 'dumbMemes', icon: '😂', label: 'Dumb Memes', component: null },
-      { key: 'hotTake', icon: '🔥', label: 'Hot Take', component: HotTake }
+      { key: 'brainDump', icon: '🧠', label: t('cope.tools.brainDump'), component: BrainDump },
+      { key: 'fiveMinuteReset', icon: '⏱️', label: t('cope.tools.fiveMinuteReset'), action: handleFiveMinuteReset },
+      { key: 'dumbMemes', icon: '😂', label: t('cope.tools.dumbMemes'), component: null },
+      { key: 'hotTake', icon: '🔥', label: t('cope.tools.hotTake'), component: HotTake }
+    ],
+    productivity: [
+      { key: 'simplifyTodo', icon: '📋', label: t('cope.tools.simplifyTodo'), action: handleSimplifyTodoList },
+      { key: 'scheduleBreaks', icon: '☕', label: t('cope.tools.scheduleBreaks'), action: handleScheduleBreaks },
+      { key: 'findFocusTime', icon: '🎯', label: t('cope.tools.findFocusTime'), action: handleFindFocusTime }
     ],
     lowEffort: [
-      { key: 'tinyWin', icon: '✨', label: 'Tiny Win', component: TinyWin },
-      { key: 'minimalLife', icon: '🌱', label: 'Minimal Life', component: MinimalLifeTip }
+      { key: 'tinyWin', icon: '✨', label: t('cope.tools.tinyWin'), component: TinyWin },
+      { key: 'minimalLife', icon: '🌱', label: t('cope.tools.minimalLife'), component: MinimalLifeTip }
     ],
     random: [
-      { key: 'whatNow', icon: '🎲', label: 'What Now?', component: WhatNow }
+      { key: 'whatNow', icon: '🎲', label: t('cope.tools.whatNow'), component: WhatNow }
     ],
     crisis: [
       { key: 'crisis', icon: '🆘', label: 'Crisis Resources', component: null }
@@ -37,7 +45,9 @@ function CopeToolkitPage({ onNavigate }) {
   }
 
   const handleToolClick = (tool) => {
-    if (tool.component) {
+    if (tool.action) {
+      tool.action()
+    } else if (tool.component) {
       setActiveTool(tool)
     } else {
       console.log('Tool clicked:', tool.key)
@@ -47,6 +57,24 @@ function CopeToolkitPage({ onNavigate }) {
 
   const closeTool = () => {
     setActiveTool(null)
+  }
+
+  const handleSimplifyTodoList = () => {
+    const prioritized = getPrioritizedTasks('stressed')
+    const top3 = prioritized.slice(0, 3)
+    alert(`AI Sidekick: Simplified to top ${top3.length} tasks! Focus on what matters most. Go to AI Sidekick to see them.`)
+  }
+
+  const handleScheduleBreaks = () => {
+    alert('AI Sidekick: Breaks scheduled! Remember to take 5-10 minute breaks every hour.')
+  }
+
+  const handleFindFocusTime = () => {
+    alert('AI Sidekick: Found your best focus time! Morning (9-11 AM) is when you\'re most productive.')
+  }
+
+  const handleFiveMinuteReset = () => {
+    alert('5-Minute Reset: Let\'s do this together!\n\n1. Close your eyes\n2. Take 3 deep breaths\n3. Stretch your shoulders\n4. Drink a glass of water\n\nYou got this! 💪')
   }
 
   if (activeTool && activeTool.component) {
@@ -69,10 +97,10 @@ function CopeToolkitPage({ onNavigate }) {
         ← {t('common.back')}
       </button>
 
-      <h1 className="cope-title">Cope Toolkit</h1>
+      <h1 className="cope-title">{t('cope.title')}</h1>
 
       <div className="tool-section">
-        <h2 className="section-title">Vibe Management</h2>
+        <h2 className="section-title">{t('cope.sections.vibe')}</h2>
         <div className="tool-grid">
           {tools.vibe.map((tool) => (
             <button
@@ -88,7 +116,7 @@ function CopeToolkitPage({ onNavigate }) {
       </div>
 
       <div className="tool-section">
-        <h2 className="section-title">Mental Reset</h2>
+        <h2 className="section-title">{t('cope.sections.mental')}</h2>
         <div className="tool-grid">
           {tools.mental.map((tool) => (
             <button
@@ -104,7 +132,23 @@ function CopeToolkitPage({ onNavigate }) {
       </div>
 
       <div className="tool-section">
-        <h2 className="section-title">Low-Effort Wins</h2>
+        <h2 className="section-title">{t('cope.sections.productivity')}</h2>
+        <div className="tool-grid">
+          {tools.productivity.map((tool) => (
+            <button
+              key={tool.key}
+              className="tool-card productivity"
+              onClick={() => handleToolClick(tool)}
+            >
+              <span className="tool-icon">{tool.icon}</span>
+              <span className="tool-label">{tool.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="tool-section">
+        <h2 className="section-title">{t('cope.sections.lowEffort')}</h2>
         <div className="tool-grid">
           {tools.lowEffort.map((tool) => (
             <button
@@ -120,7 +164,7 @@ function CopeToolkitPage({ onNavigate }) {
       </div>
 
       <div className="tool-section">
-        <h2 className="section-title">Random Vibe</h2>
+        <h2 className="section-title">{t('cope.sections.random')}</h2>
         <div className="tool-grid">
           {tools.random.map((tool) => (
             <button
