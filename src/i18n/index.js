@@ -14,7 +14,12 @@ const LANGUAGE_KEY = 'starbuddy_language';
 export function I18nProvider({ children }) {
   const [currentLocale, setCurrentLocale] = useState(() => {
     const savedLanguage = localStorage.getItem(LANGUAGE_KEY);
-    return savedLanguage || 'en';
+    if (savedLanguage) return savedLanguage;
+    
+    // 检测浏览器语言
+    const browserLang = navigator.language?.toLowerCase() || navigator.userLanguage?.toLowerCase();
+    if (browserLang?.startsWith('zh')) return 'zh';
+    return 'en';
   });
 
   const changeLanguage = (lang) => {
