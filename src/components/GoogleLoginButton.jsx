@@ -8,23 +8,37 @@ export default function GoogleLoginButton() {
     onSuccess: async (response) => {
       try {
         console.log('Google login success, response:', response);
+        console.log('Credential available:', !!response.credential);
+        console.log('Access token available:', !!response.access_token);
         
-        // 使用 Google API 获取用户信息，而不是解析 JWT
-        const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-          headers: {
-            Authorization: `Bearer ${response.access_token}`,
-          },
-        });
+        let userInfo;
         
-        if (!res.ok) {
-          throw new Error('Failed to fetch user info');
+        // 优先使用 credential 解析
+        if (response.credential) {
+          console.log('Using credential...');
+          // 简单的 base64 解码方式，不依赖 jwt-decode 库
+          const base64Url = response.credential.split('.')[1];
+          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => 
+            '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+          ).join(''));
+          userInfo = JSON.parse(jsonPayload);
+          console.log('Decoded user info:', userInfo);
+        } else if (response.access_token) {
+          console.log('Using access token...');
+          const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+            headers: {
+              Authorization: `Bearer ${response.access_token}`,
+            },
+          });
+          if (!res.ok) throw new Error('Failed to fetch user info');
+          userInfo = await res.json();
+        } else {
+          throw new Error('No credential or access token found');
         }
         
-        const userInfo = await res.json();
-        console.log('User info from Google:', userInfo);
-        
         loginGoogleUser({
-          id: userInfo.sub,
+          id: userInfo.sub || userInfo.id,
           email: userInfo.email,
           name: userInfo.name,
           picture: userInfo.picture,
@@ -40,6 +54,7 @@ export default function GoogleLoginButton() {
       console.error('Login Error:', error);
       alert('登录错误: ' + JSON.stringify(error));
     },
+    flow: 'implicit',
     scope: 'openid profile email',
   });
 
