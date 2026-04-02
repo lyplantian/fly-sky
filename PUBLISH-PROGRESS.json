@@ -1,0 +1,22 @@
+{
+  "last_updated": "2026-03-29T04:30:57.230Z",
+  "deployment": {
+    "built": true,
+    "deployed": true,
+    "url": "https://nanobananalyp.shop"
+  },
+  "materials": {
+    "screenshots": false,
+    "video": false,
+    "og_image": true
+  },
+  "platforms": {
+    "product_hunt": false,
+    "hacker_news": false,
+    "reddit": false,
+    "v2ex": false,
+    "juejin": false,
+    "twitter": false,
+    "zhihu": false
+  }
+}
