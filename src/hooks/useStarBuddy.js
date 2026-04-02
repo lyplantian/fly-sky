@@ -284,15 +284,18 @@ export function useStarBuddy() {
     setGoogleUser(user);
     saveToStorage('google_user', user);
     // 如果 Google 用户有名字和头像，同步到 profile
-    if (user?.name && !profile.name) {
-      const newProfile = { ...profile, name: user.name };
-      if (user?.picture) {
-        newProfile.avatar = user.picture;
+    setProfile(prevProfile => {
+      if (user?.name && !prevProfile.name) {
+        const newProfile = { ...prevProfile, name: user.name };
+        if (user?.picture) {
+          newProfile.avatar = user.picture;
+        }
+        saveToStorage(STORAGE_KEYS.USER_PROFILE, newProfile);
+        return newProfile;
       }
-      setProfile(newProfile);
-      saveToStorage(STORAGE_KEYS.USER_PROFILE, newProfile);
-    }
-  }, [profile]);
+      return prevProfile;
+    });
+  }, []);
 
   const logoutGoogleUser = useCallback(() => {
     setGoogleUser(null);
