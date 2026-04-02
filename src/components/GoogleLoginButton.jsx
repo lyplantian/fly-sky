@@ -1,5 +1,5 @@
 import { useGoogleLogin, googleLogout } from '@react-oauth/google';
-import { jwtDecode } from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 import { useStarBuddyContext } from '../contexts/StarBuddyContext';
 
 export default function GoogleLoginButton() {
@@ -8,7 +8,9 @@ export default function GoogleLoginButton() {
   const login = useGoogleLogin({
     onSuccess: async (response) => {
       try {
-        const userInfo = jwtDecode(response.credential);
+        console.log('Google login success, response:', response);
+        const userInfo = jwt_decode(response.credential);
+        console.log('Decoded user info:', userInfo);
         loginGoogleUser({
           id: userInfo.sub,
           email: userInfo.email,
@@ -19,10 +21,12 @@ export default function GoogleLoginButton() {
         });
       } catch (error) {
         console.error('Login failed:', error);
+        alert('登录失败: ' + error.message);
       }
     },
     onError: (error) => {
       console.error('Login Error:', error);
+      alert('登录错误: ' + JSON.stringify(error));
     },
     scope: 'openid profile email',
   });
