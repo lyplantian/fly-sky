@@ -1,5 +1,5 @@
 import { useGoogleLogin, googleLogout } from '@react-oauth/google';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { useStarBuddyContext } from '../contexts/StarBuddyContext';
 
 export default function GoogleLoginButton() {
