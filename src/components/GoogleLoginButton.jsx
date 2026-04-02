@@ -1,5 +1,4 @@
 import { useGoogleLogin, googleLogout } from '@react-oauth/google';
-import { jwtDecode } from 'jwt-decode';
 import { useStarBuddyContext } from '../contexts/StarBuddyContext';
 
 export default function GoogleLoginButton() {
@@ -9,8 +8,21 @@ export default function GoogleLoginButton() {
     onSuccess: async (response) => {
       try {
         console.log('Google login success, response:', response);
-        const userInfo = jwtDecode(response.credential);
-        console.log('Decoded user info:', userInfo);
+        
+        // 使用 Google API 获取用户信息，而不是解析 JWT
+        const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: {
+            Authorization: `Bearer ${response.access_token}`,
+          },
+        });
+        
+        if (!res.ok) {
+          throw new Error('Failed to fetch user info');
+        }
+        
+        const userInfo = await res.json();
+        console.log('User info from Google:', userInfo);
+        
         loginGoogleUser({
           id: userInfo.sub,
           email: userInfo.email,
@@ -21,7 +33,7 @@ export default function GoogleLoginButton() {
         });
       } catch (error) {
         console.error('Login failed:', error);
-        alert('登录失败: ' + error.message);
+        alert('登录失败: ' + (error.message || JSON.stringify(error)));
       }
     },
     onError: (error) => {
