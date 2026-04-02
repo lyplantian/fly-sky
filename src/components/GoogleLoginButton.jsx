@@ -1,5 +1,5 @@
 import { useGoogleLogin, googleLogout } from '@react-oauth/google';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { useStarBuddyContext } from '../contexts/StarBuddyContext';
 
 export default function GoogleLoginButton() {
@@ -9,7 +9,7 @@ export default function GoogleLoginButton() {
     onSuccess: async (response) => {
       try {
         console.log('Google login success, response:', response);
-        const userInfo = jwt_decode(response.credential);
+        const userInfo = jwtDecode(response.credential);
         console.log('Decoded user info:', userInfo);
         loginGoogleUser({
           id: userInfo.sub,
