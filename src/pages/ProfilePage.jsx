@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useI18n } from '../i18n'
 import { useStarBuddyContext } from '../contexts/StarBuddyContext'
 import LanguageSwitcher from '../components/LanguageSwitcher'
+import GoogleLoginButton from '../components/GoogleLoginButton'
+import '../components/GoogleLoginButton.css'
 import './ProfilePage.css'
 
 function ProfilePage({ onNavigate }) {
@@ -16,7 +18,10 @@ function ProfilePage({ onNavigate }) {
     deleteAllData,
     isLoading,
     getTimeSavedEstimate,
-    tasks
+    tasks,
+    googleUser,
+    loginGoogleUser,
+    logoutGoogleUser
   } = useStarBuddyContext()
   
   const [userName, setUserName] = useState(profile?.name || '')
@@ -153,6 +158,11 @@ function ProfilePage({ onNavigate }) {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="profile-section">
+        <h2 className="section-title">Google 账号</h2>
+        <GoogleLoginButton />
       </div>
 
       <div className="profile-section">

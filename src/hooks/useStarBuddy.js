@@ -22,6 +22,7 @@ export function useStarBuddy() {
     name: '',
     avatar: null
   });
+  const [googleUser, setGoogleUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -39,6 +40,7 @@ export function useStarBuddy() {
         name: '',
         avatar: null
       }));
+      setGoogleUser(loadFromStorage('google_user', null));
       setIsLoading(false);
     };
     
@@ -278,6 +280,25 @@ export function useStarBuddy() {
     return Math.round(totalEstimatedTime * 0.2);
   }, [tasks]);
 
+  const loginGoogleUser = useCallback((user) => {
+    setGoogleUser(user);
+    saveToStorage('google_user', user);
+    // 如果 Google 用户有名字和头像，同步到 profile
+    if (user?.name && !profile.name) {
+      const newProfile = { ...profile, name: user.name };
+      if (user?.picture) {
+        newProfile.avatar = user.picture;
+      }
+      setProfile(newProfile);
+      saveToStorage(STORAGE_KEYS.USER_PROFILE, newProfile);
+    }
+  }, [profile]);
+
+  const logoutGoogleUser = useCallback(() => {
+    setGoogleUser(null);
+    saveToStorage('google_user', null);
+  }, []);
+
   return {
     checkIns,
     chatHistories,
@@ -285,6 +306,7 @@ export function useStarBuddy() {
     timeLogs,
     preferences,
     profile,
+    googleUser,
     isLoading,
     addCheckIn,
     saveChatHistory,
@@ -303,6 +325,9 @@ export function useStarBuddy() {
     getPrioritizedTasks,
     getTopTaskSuggestion,
     parseNaturalLanguageTask,
-    getTimeSavedEstimate
+    getTimeSavedEstimate,
+    // Google OAuth
+    loginGoogleUser,
+    logoutGoogleUser
   };
 }

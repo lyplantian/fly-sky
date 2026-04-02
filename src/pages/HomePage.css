@@ -8,6 +8,14 @@
   transition: background 0.3s ease;
 }
 
+.home-google-login {
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
 .language-switcher-top {
   display: flex;
   gap: 8px;

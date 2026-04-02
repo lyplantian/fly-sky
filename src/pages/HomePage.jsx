@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useI18n } from '../i18n'
 import { useStarBuddyContext } from '../contexts/StarBuddyContext'
+import GoogleLoginButton from '../components/GoogleLoginButton'
+import '../components/GoogleLoginButton.css'
 import './HomePage.css'
 
 function HomePage({ onNavigate }) {
@@ -28,6 +30,10 @@ function HomePage({ onNavigate }) {
 
   return (
     <div className="home-page page">
+      <div className="home-google-login">
+        <GoogleLoginButton />
+      </div>
+      
       <div className="star-icon">★</div>
       
       <h1 className="home-title">{t('home.title')}</h1>
